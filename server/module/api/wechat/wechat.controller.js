@@ -15,6 +15,7 @@ class Wechat {
   constructor() {
     this.handler = CoWechat(config.wechat).middleware(async (message, ctx) => {
       console.dir(message);
+      message.openid = message.FromUserName;
 
       let ret = "";
       switch (message.MsgType) {

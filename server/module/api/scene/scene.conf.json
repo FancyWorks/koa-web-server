@@ -1,0 +1,5 @@
+{
+  "route": [
+    "GET /scene/:id get"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "route": [
+    "GET /user/:id get",
+    "POST /user authorization.check|add",
+    "GET /token createToken"
+  ]
+}

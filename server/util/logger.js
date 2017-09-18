@@ -9,7 +9,7 @@ log4js.configure({
     },
     koa: {
       type: 'dateFile',
-      filename: './logs/',
+      filename: __dirname + '/../logs/',
       pattern: "yyyy-MM-dd.log",
       alwaysIncludePattern: true
     }
