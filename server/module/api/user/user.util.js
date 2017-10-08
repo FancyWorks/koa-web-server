@@ -2,6 +2,7 @@
 
 const {api} = require('../wechat/wechat.util');
 const userDao = require('./user.dao');
+const _ = require('lodash');
 
 exports.ensureUser = async (openid) => {
   let user = await api.getUser(openid);
