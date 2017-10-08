@@ -9,6 +9,7 @@ const config = require('../../../util/config');
 const logger = require('../../../util/logger');
 const FileUtil = require('../../../util/file_util');
 const userDao = require('../user/user.dao');
+const userUtil = require('../user/user.util');
 const ticketDao = require('../ticket/ticket.dao');
 const sceneDao = require('../scene/scene.dao');
 
@@ -75,7 +76,8 @@ let sendInvitationProcess = exports.sendInvitationProcess = async (parentId, use
 exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, durationDay = 29) => {
   let openid = message.FromUserName;
 
-  let user = await api.getUser(openid);
+  // Ken 2017-10-08 16:24 fix "用户已经关注了, 活动是后发布的, 则用户在生成邀请卡时, 在user表中无此用户"
+  let user = await userUtil.ensureUser(openid);
   logger.info('user ' + user.nickname);
 
   let media = {};
@@ -94,24 +96,26 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
     }
     else {
       logger.info('新生成邀请卡, openid=' + openid);
+
       let qrCode = await api.createTmpQRCode(sceneId, 60 * 60 * 24 * durationDay);
       console.log('qrCode', qrCode);
       qrCodeUrl = await api.showQRCodeURL(qrCode.ticket);
 
       let ticketRecord = await ticketDao.selectOne({scene_id: sceneId, ticket: parentTicket, del: 0});
+      // Ken 2017-10-08 16:20 新用户生成邀请卡, ticketRecord不存在, 下面会报错
+      let parentWxUid = ticketRecord ? ticketRecord.wx_uid : null;
 
       // 记录
       await ticketDao.add({
-        parent_id: ticketRecord.wx_uid,
+        parent_id: parentWxUid,
         wx_uid: openid,
         scene_id: sceneId,
         ticket: qrCode.ticket,
         qrcode_url: qrCodeUrl,
       });
 
-      // TODO: ken
-      // api.sendTemplate(ticketRecord.wx_uid, templateId, );
-      sendInvitationProcess(ticketRecord.wx_uid, user.nickname, sceneId);
+      if (parentWxUid)
+        sendInvitationProcess(parentWxUid, user.nickname, sceneId);
     }
     logger.info('qrCodeUrl', qrCodeUrl);
 
@@ -122,7 +126,7 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
     media.joinSceneMessage = joinSceneMessage;
     console.log('media', media);
   } catch (e) {
-    logger.error(`生成qrcode出错, openid = ${openid}, error = ` + JSON.stringify(e));
+    logger.error(`生成qrcode出错, openid = ${openid}, error = ` + e.message);
     console.error(e);
   }
 
