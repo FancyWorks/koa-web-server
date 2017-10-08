@@ -82,7 +82,7 @@ class Wechat {
       ret = await func(message, ctx);
     }
     else {
-      ret = message.Content + '=--=';
+      ret = ''; //message.Content + '=--=';
     }
 
     return ret;
