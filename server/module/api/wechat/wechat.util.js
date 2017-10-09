@@ -43,16 +43,16 @@ let sendInvitationProcess = exports.sendInvitationProcess = async (parentId, use
 
   let data =
     {
-      "username": {
-        "value": username,
+      "first": {
+        "value": `恭喜你成功邀请了 ${username} !`,
         "color": keywordColor
       },
-      'scenename': {
+      'keyword1': {
         "value": scene.name,
         "color": keywordColor
       },
-      'process': {
-        "value": _.size(tickets) + '/' + total,
+      'keyword2': {
+        "value": `${_.size(tickets)}/${total}`,
         "color": keywordColor
       },
       'remark': {
