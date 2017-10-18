@@ -77,7 +77,7 @@ const sceneDao = require('../scene/scene.dao');
 //   return '';
 // };
 
-exports.Text_4 = async (message, ctx) => {
-  await sendInvitationProcess('oyqFdwNzVcGVQF6sEri0f6sKfZPY', "lala", 1);
-  return '';
-};
+// exports.Text_4 = async (message, ctx) => {
+//   await sendInvitationProcess('oyqFdwNzVcGVQF6sEri0f6sKfZPY', "lala", 1);
+//   return '';
+// };
