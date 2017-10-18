@@ -59,7 +59,7 @@ exports.Event_subscribe = async (message, ctx) => {
     ret = user.nickname + ', 感谢您的关注~';
   }
 
-  console.log(userId);
+  // console.log(userId);
   return ret;
 };
 
