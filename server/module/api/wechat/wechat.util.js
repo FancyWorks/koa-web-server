@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
+const moment = require('moment');
 const path = require('path');
 const Promise = require('bluebird');
 const CoWechat = require('co-wechat');
@@ -30,6 +31,9 @@ let sendInvitationProcess = exports.sendInvitationProcess = async (parentId, use
     throw `未找到此活动, sceneId = ${sceneId}`;
   }
 
+  let sceneStartDate = moment(scene.start_time).format('YYYY-MM-DD');
+  let sceneDayDuration = scene.duration_day;
+
   let tickets = await ticketDao.select({scene_id: sceneId, parent_id: parentId, del: 0});
 
   let templateId = scene.process_notification_id;
@@ -48,11 +52,11 @@ let sendInvitationProcess = exports.sendInvitationProcess = async (parentId, use
         "color": keywordColor
       },
       'keyword1': {
-        "value": scene.name,
+        "value": `${scene.name}, 进度: ${_.size(tickets)}/${total}`,
         "color": keywordColor
       },
       'keyword2': {
-        "value": `${_.size(tickets)}/${total}`,
+        "value": `${sceneStartDate}, 持续 ${sceneDayDuration} 天`,
         "color": keywordColor
       },
       'remark': {
