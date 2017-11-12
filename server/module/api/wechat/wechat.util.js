@@ -87,6 +87,14 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
   let media = {};
   let isJoinedScene = false;
   let joinSceneMessage = '恭喜您参加活动成功!';
+  joinSceneMessage = `
+  恭喜您成功参加活动。
+复制一下活动内容分享到朋友圈。
+
+1.扫描二维码关注服务号，输入‘团购会’并发送。
+2.收到独有二维码和活动内容，将此内容和二维码分享到朋友圈。
+3.扩散38位好友参与活动并加38元就可领取价值138元家用折叠梯一部。
+4.活动时间：11月13日--12月2日。领取时间：12月2日，领取地址：亿丰商贸城3D木门（法院对面门进）。`;
   try {
     //查看是否已生成邀请卡
     let qrCodeUrl = '';
@@ -96,7 +104,7 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
       logger.info('已存在邀请卡, openid=' + openid);
       qrCodeUrl = ticketRecord.qrcode_url;
       isJoinedScene = true;
-      joinSceneMessage = '您参加过此活动';
+      // joinSceneMessage = '您参加过此活动';
     }
     else {
       logger.info('新生成邀请卡, openid=' + openid);

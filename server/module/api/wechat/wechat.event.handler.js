@@ -47,7 +47,14 @@ exports.Event_subscribe = async (message, ctx) => {
   let ret = '';
   // 扫码关注
   if (message.EventKey) {
-    ret = user.nickname + ', 感谢您的关注~ 恭喜您成功加入活动!';
+    ret = user.nickname + ', 感谢您的关注~ ';
+    ret += `恭喜您成功参加活动。
+复制一下活动内容分享到朋友圈。
+
+1.扫描二维码关注服务号，输入‘团购会’并发送。
+2.收到独有二维码和活动内容，将此内容和二维码分享到朋友圈。
+3.扩散38位好友参与活动并加38元就可领取价值138元家用折叠梯一部。
+4.活动时间：11月13日--12月2日。领取时间：12月2日，领取地址：亿丰商贸城3D木门（法院对面门进）。`;
     let sceneId = message.EventKey.split('_')[1];
     let media = await GenerateInvitationCard(message, sceneId, message.Ticket);
 
