@@ -88,7 +88,7 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
   let isJoinedScene = false;
   let joinSceneMessage = '恭喜您参加活动成功!';
   joinSceneMessage = `恭喜您成功参加活动。
-复制一下活动内容分享到朋友圈。
+复制以下活动内容分享到朋友圈。
 
 1.扫描二维码关注服务号，输入‘团购会’并发送。
 2.收到独有二维码和活动内容，将此内容和二维码分享到朋友圈。

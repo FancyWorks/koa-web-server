@@ -49,7 +49,7 @@ exports.Event_subscribe = async (message, ctx) => {
   if (message.EventKey) {
     ret = user.nickname + ', 感谢您的关注~ ';
     ret += `恭喜您成功参加活动。
-复制一下活动内容分享到朋友圈。
+复制以下活动内容分享到朋友圈。
 
 1.扫描二维码关注服务号，输入‘团购会’并发送。
 2.收到独有二维码和活动内容，将此内容和二维码分享到朋友圈。
