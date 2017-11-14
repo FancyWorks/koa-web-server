@@ -128,12 +128,13 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
 
     let imageLocalUrl = path.join(__dirname, `../../../../public/qrcode/${openid}.png`);
     await FileUtil.download(qrCodeUrl, imageLocalUrl);
-    let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg.jpeg'
-      , imageLocalUrl
-      , openid
-      , 300
-      , {x: 720, y: 1360});
-    media = await api.uploadMedia(cardUrl, 'image').then(result => JSON.parse(result));
+    // let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg.jpeg'
+    //   , imageLocalUrl
+    //   , openid
+    //   , 300
+    //   , {x: 720, y: 1360});
+    // media = await api.uploadMedia(cardUrl, 'image').then(result => JSON.parse(result));
+    media = await api.uploadMedia(imageLocalUrl, 'image').then(result => JSON.parse(result));
     media.isJoinedScene = isJoinedScene;
     media.joinSceneMessage = joinSceneMessage;
     console.log('media', media);
