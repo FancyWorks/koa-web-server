@@ -13,6 +13,7 @@ const userDao = require('../user/user.dao');
 const userUtil = require('../user/user.util');
 const ticketDao = require('../ticket/ticket.dao');
 const sceneDao = require('../scene/scene.dao');
+const gmUtil = require('../../../util/gm_util');
 
 const api = new WechatAPI(config.wechat.appid, config.wechat.appsecret);
 exports.api = api;
@@ -87,13 +88,8 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
   let media = {};
   let isJoinedScene = false;
   let joinSceneMessage = '恭喜您参加活动成功!';
-  joinSceneMessage = `恭喜您成功参加活动。
-复制以下活动内容分享到朋友圈。
-
-1.扫描二维码关注服务号，输入‘团购会’并发送。
-2.收到独有二维码和活动内容，将此内容和二维码分享到朋友圈。
-3.扩散38位好友参与活动并加38元就可领取价值138元家用折叠梯一部。
-4.活动时间：11月13日--12月2日。领取时间：12月2日，领取地址：亿丰商贸城3D木门（法院对面门进）。`;
+  joinSceneMessage = `恭喜您成功参与活动！
+快把带有您独有的二维码图片分享给朋友也来参加活动领取家用折叠梯吧！`;
   try {
     //查看是否已生成邀请卡
     let qrCodeUrl = '';
@@ -132,7 +128,12 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
 
     let imageLocalUrl = path.join(__dirname, `../../../../public/qrcode/${openid}.png`);
     await FileUtil.download(qrCodeUrl, imageLocalUrl);
-    media = await api.uploadMedia(imageLocalUrl, 'image').then(result => JSON.parse(result));
+    let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg.jpeg'
+      , imageLocalUrl
+      , openid
+      , 300
+      , {x: 720, y: 1360});
+    media = await api.uploadMedia(cardUrl, 'image').then(result => JSON.parse(result));
     media.isJoinedScene = isJoinedScene;
     media.joinSceneMessage = joinSceneMessage;
     console.log('media', media);
