@@ -13,7 +13,7 @@ const userDao = require('../user/user.dao');
 const userUtil = require('../user/user.util');
 const ticketDao = require('../ticket/ticket.dao');
 const sceneDao = require('../scene/scene.dao');
-const gmUtil = require('../../../util/gm_util');
+// const gmUtil = require('../../../util/gm_util');
 
 const api = new WechatAPI(config.wechat.appid, config.wechat.appsecret);
 exports.api = api;
