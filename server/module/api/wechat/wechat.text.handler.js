@@ -35,7 +35,7 @@ const sceneDao = require('../scene/scene.dao');
 
       setTimeout(() => {
         api.sendImage(message.openid, media.media_id);
-      }, 0);
+      }, 100);
 
       return media.joinSceneMessage;
     };

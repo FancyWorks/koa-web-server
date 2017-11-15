@@ -10,7 +10,7 @@ function GenerateCardImg (bgUrl, qrcodeUrl, openid, qrcodeWidth, qrcodePosition)
   let cardUrl = path.join(__dirname, `/../../public/card/${openid}.jpg`);
   return new Promise((resolve, reject) => {
     gm(qrcodeUrl)
-      .resize(qrcodeWidth)
+      .resize(qrcodeWidth, qrcodeWidth)
       .write(qrcodeUrl, (err) => {
         if (err) {
           reject(err);
