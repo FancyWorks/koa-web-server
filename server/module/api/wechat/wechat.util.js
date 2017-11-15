@@ -105,7 +105,7 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
       logger.info('新生成邀请卡, openid=' + openid);
 
       let qrCode = await api.createTmpQRCode(sceneId, 60 * 60 * 24 * durationDay);
-      console.log('qrCode', qrCode);
+      // console.log('qrCode', qrCode);
       qrCodeUrl = await api.showQRCodeURL(qrCode.ticket);
 
       let ticketRecord = await ticketDao.selectOne({scene_id: sceneId, ticket: parentTicket, del: 0});
@@ -137,10 +137,10 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
     // media = await api.uploadMedia(imageLocalUrl, 'image').then(result => JSON.parse(result));
     media.isJoinedScene = isJoinedScene;
     media.joinSceneMessage = joinSceneMessage;
-    console.log('media', media);
+    logger.info('media', media);
   } catch (e) {
     logger.error(`生成qrcode出错, openid = ${openid}, error = ` + e.message);
-    console.error(e);
+    // console.error(e);
   }
 
   return media;

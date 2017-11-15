@@ -14,7 +14,7 @@ const api = new WechatAPI(config.wechat.appid, config.wechat.appsecret);
 class Wechat {
   constructor() {
     this.handler = CoWechat(config.wechat).middleware(async (message, ctx) => {
-      console.dir(message);
+      // console.dir(message);
       message.openid = message.FromUserName;
 
       let ret = "";
@@ -78,6 +78,7 @@ class Wechat {
   async onText(message, ctx) {
     let ret = "";
     let func = TextHandler['Text_' + message.Content];
+    console.log(11111111111111111, message.Content);
     if (_.isFunction(func)) {
       ret = await func(message, ctx);
     }

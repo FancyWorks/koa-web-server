@@ -33,9 +33,10 @@ const sceneDao = require('../scene/scene.dao');
     exports['Text_' + scene.keyword] = async (message, ctx) => {
       let media = await GenerateInvitationCard(message, scene.id);
 
-      setTimeout(() => {
-        api.sendImage(message.openid, media.media_id);
-      }, 100);
+      // setTimeout(() => {
+      //   api.sendImage(message.openid, media.media_id);
+      // }, 0);
+      logger.debug('joinSceneMessage, ' + media.joinSceneMessage);
 
       return media.joinSceneMessage;
     };

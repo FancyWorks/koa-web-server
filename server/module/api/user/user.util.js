@@ -6,7 +6,7 @@ const _ = require('lodash');
 
 exports.ensureUser = async (openid) => {
   let user = await api.getUser(openid);
-  console.dir(user);
+  // console.dir(user);
 
   //   {
   //  "subscribe": 1,
@@ -21,7 +21,7 @@ exports.ensureUser = async (openid) => {
   //  "subscribe_time": 1382694957
   // }
   let dbUser = await userDao.selectOne({wx_uid: openid});
-  console.dir(dbUser);
+  // console.dir(dbUser);
   let userId = 0;
 
   let newUser = {
@@ -40,7 +40,7 @@ exports.ensureUser = async (openid) => {
   else {
     // 已有此用户
     userId = dbUser.id;
-    await userDao.update(newUser);
+    await userDao.update(newUser, {id: userId});
   }
   user.id = userId;
 
