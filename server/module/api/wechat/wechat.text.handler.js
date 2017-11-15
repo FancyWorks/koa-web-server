@@ -32,12 +32,16 @@ const sceneDao = require('../scene/scene.dao');
   _.forEach(scenes, (scene) => {
     exports['Text_' + scene.keyword] = async (message, ctx) => {
       // return scene.keyword + " 正在调试中...";
-      let media = await GenerateInvitationCard(message, scene.id);
+      async function SendImage () {
+        let media = await GenerateInvitationCard(message, scene.id);
 
-      setTimeout(() => {
-        api.sendImage(message.openid, media.media_id);
-      }, 0);
-      logger.debug('joinSceneMessage, ' + media.joinSceneMessage);
+        setTimeout(() => {
+          api.sendImage(message.openid, media.media_id);
+        }, 0);
+        logger.debug('joinSceneMessage, ' + media.joinSceneMessage);
+      }
+
+      SendImage();
 
       return `恭喜您成功参与活动！
 快把带有您独有的二维码图片分享给朋友也来参加活动领取家用折叠梯吧！`;
