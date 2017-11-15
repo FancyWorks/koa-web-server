@@ -31,14 +31,15 @@ const sceneDao = require('../scene/scene.dao');
 
   _.forEach(scenes, (scene) => {
     exports['Text_' + scene.keyword] = async (message, ctx) => {
-      let media = await GenerateInvitationCard(message, scene.id);
+      return scene.keyword + " 正在调试中...";
+      // let media = await GenerateInvitationCard(message, scene.id);
 
       // setTimeout(() => {
       //   api.sendImage(message.openid, media.media_id);
       // }, 0);
       logger.debug('joinSceneMessage, ' + media.joinSceneMessage);
 
-      return media.joinSceneMessage;
+      // return media.joinSceneMessage;
     };
   });
 
