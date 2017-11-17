@@ -21,6 +21,7 @@ function GenerateCardImg (bgUrl, qrcodeUrl, openid, qrcodeWidth, qrcodePosition)
             .in(bgUrl)
             .in('-page', `+${qrcodePosition.x}+${qrcodePosition.y}`)
             .in(qrcodeUrl)
+            .resize(1087/3, 1849/3)
             .mosaic() // Merges the images as a matrix
             .write(cardUrl, (err) => {
               if (err) {
