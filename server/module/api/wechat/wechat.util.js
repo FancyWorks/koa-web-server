@@ -131,8 +131,8 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
     let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg.jpeg'
       , imageLocalUrl
       , openid
-      , 300
-      , {x: 720, y: 1360});
+      , 100
+      , {x: 720/3, y: 1360/3});
     media = await api.uploadMedia(cardUrl, 'image').then(result => JSON.parse(result));
     // media = await api.uploadMedia(imageLocalUrl, 'image').then(result => JSON.parse(result));
     media.isJoinedScene = isJoinedScene;
