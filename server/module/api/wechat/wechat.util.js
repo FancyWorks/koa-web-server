@@ -128,7 +128,7 @@ exports.GenerateInvitationCard = async (message, sceneId, parentTicket = null, d
 
     let imageLocalUrl = path.join(__dirname, `../../../../public/qrcode/${openid}.png`);
     await FileUtil.download(qrCodeUrl, imageLocalUrl);
-    let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg.jpeg'
+    let cardUrl = await gmUtil.GenerateCardImg(__dirname + '/../../../card/bg_s.jpg'
       , imageLocalUrl
       , openid
       , 100
